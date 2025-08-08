@@ -1,5 +1,7 @@
 
+
 local enableLogging = true
+local enableLoggingSact = true
 
 SprintObj = false
 SprintSet = false
@@ -10,9 +12,9 @@ NoSprintSet = false
 
 Player = false
 IsSprinting = false
-WantSprint = true
+WantSprint = false
 
-local triedSprint = false
+local SprintPressed = false
 ForceSprint = true
 local ignoreActions = {
 	['BUTTON_RELEASED'] = {
@@ -32,13 +34,13 @@ local ignoreActions = {
 
 
 registerInput('bp.auto_sprint.toggle', 'toggle sprint', function(keypress)
+    if not keypress then
+        return
+    end
+	WantSprint = not WantSprint
 
-	if keypress then
-		WantSprint = false
-		-- key is pressed
-	else
-		WantSprint = false
-		-- key is released
+	if enableLogging then
+		print("toggle WantSprint", WantSprint)
 	end
 
 end)
@@ -71,25 +73,41 @@ registerForEvent('onInit', function()
 				if action:GetValue() > 0 then
 					SprintObj = action
 					SprintSet = true
+
+					if not SprintPressed then
+						WantSprint = not WantSprint
+						if enableLogging then
+							print("toggle WantSprint", WantSprint)
+						end
+						SprintPressed = true
+					end
+
+
 					if enableLogging then
 						spdlog.info('sprint')
 					end
 				end
 
 			end
-		elseif action:GetType().value == "BUTTON_RELEASED" then
+		elseif action:GetType().value == "BUTTON_HOLD_COMPLETE" then
 			if Game.NameToString(action:GetName()) == "Sprint" then
 				-- Sprint button is pressed (or active)
 				-- print("Sprinting!")
-				if action:GetValue() <= 0 then
+				if action:GetValue() <= 0 or true then
 					if enableLogging then
 						spdlog.info('no sprint')
 					end
 					NoSprintObj = action
 					NoSprintSet = true
+					SprintPressed = false
 				else
 				end
 
+			end
+
+		elseif action:GetType().value == "BUTTON_RELEASED" then
+			if Game.NameToString(action:GetName()) == "Sprint" then
+				SprintPressed = false
 			end
 		end
 
@@ -99,7 +117,7 @@ registerForEvent('onInit', function()
 			local actionValue = action:GetValue()
 
 			if not ignoreActions[actionType] or not ignoreActions[actionType][actionName] then
-				spdlog.info(('[%s] %s = %.3f'):format(actionType, actionName, actionValue))
+				spdlog.info(('read[%s] %s = %.3f'):format(actionType, actionName, actionValue))
 			end
 		end
 	end)
@@ -129,12 +147,24 @@ registerForEvent('onInit', function()
 		if SprintSet and WantSprint then
 			action = SprintObj
 		elseif NoSprintSet and not WantSprint then
+			action = NoSprintObj
 		end
 
 		-- spdlog.info(Dump(action))
 		-- print(Dump(action))
 
 		-- local res = wrapped(action, consumer)
+
+		if enableLoggingSact then
+			local actionName = Game.NameToString(action:GetName())
+			local actionType = action:GetType().value -- gameinputActionType
+			local actionValue = action:GetValue()
+
+			if not ignoreActions[actionType] or not ignoreActions[actionType][actionName] then
+				spdlog.info(('[%s] %s = %.3f'):format(actionType, actionName, actionValue))
+			end
+		end
+
 		local res = wrapped(action, consumer)
 		return res
 	end)
