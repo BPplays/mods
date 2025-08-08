@@ -1,7 +1,6 @@
 
-
-local enableLogging = true
-local enableLoggingSact = true
+local enableLogging = false
+local enableLoggingSact = false
 
 SprintObj = false
 SprintSet = false
@@ -66,7 +65,7 @@ registerForEvent('onInit', function()
 		-- spdlog.info(Dump(action))
 		-- print(Dump(action))
 
-		if action:GetType().value == "BUTTON_PRESSED" or true then
+		if action:GetType().value == "BUTTON_PRESSED" then
 			if Game.NameToString(action:GetName()) == "Sprint" then
 				-- Sprint button is pressed (or active)
 				-- print("Sprinting!")
@@ -135,14 +134,13 @@ registerForEvent('onInit', function()
 
 	Override('SprintDecisions', 'OnAction', function(self, action, consumer, wrapped)
 
-		if (ForceSprint and (not IsSprinting)) then
-			self:EnableOnEnterCondition(true)
-			-- return true
-		end
+		-- if (ForceSprint and (not IsSprinting)) then
+		-- 	self:EnableOnEnterCondition(true)
+		-- 	-- return true
+		-- end
 
 		-- act = NewObject("ListenerAction")
 		-- act.Name = "sprint"
-
 
 		if SprintSet and WantSprint then
 			action = SprintObj
