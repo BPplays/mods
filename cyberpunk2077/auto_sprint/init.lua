@@ -1,11 +1,16 @@
 
-local enableLogging = false
+local enableLogging = true
 
 SprintObj = false
 SprintSet = false
 
+
+NoSprintObj = false
+NoSprintSet = false
+
 Player = false
 IsSprinting = false
+WantSprint = true
 
 local triedSprint = false
 ForceSprint = true
@@ -23,6 +28,22 @@ local ignoreActions = {
 }
 
 
+
+
+
+registerInput('bp.auto_sprint.toggle', 'toggle sprint', function(keypress)
+
+	if keypress then
+		WantSprint = false
+		-- key is pressed
+	else
+		WantSprint = false
+		-- key is released
+	end
+
+end)
+
+
 registerForEvent('onInit', function()
 	Player = Game.GetPlayer()
 	-- dmp = Dump(Player, false)
@@ -30,7 +51,6 @@ registerForEvent('onInit', function()
 	-- spdlog.info(dmp)
 	-- print(dmp)
 	Player:RegisterInputListener(Player)
-
 
 
 	Observe('PlayerPuppet', 'OnGameAttached', function(self)
@@ -44,12 +64,32 @@ registerForEvent('onInit', function()
 		-- spdlog.info(Dump(action))
 		-- print(Dump(action))
 
-		if action:GetType().value == "BUTTON_PRESSED" then
+		if action:GetType().value == "BUTTON_PRESSED" or true then
 			if Game.NameToString(action:GetName()) == "Sprint" then
 				-- Sprint button is pressed (or active)
 				-- print("Sprinting!")
-				SprintObj = action
-				SprintSet = true
+				if action:GetValue() > 0 then
+					SprintObj = action
+					SprintSet = true
+					if enableLogging then
+						spdlog.info('sprint')
+					end
+				end
+
+			end
+		elseif action:GetType().value == "BUTTON_RELEASED" then
+			if Game.NameToString(action:GetName()) == "Sprint" then
+				-- Sprint button is pressed (or active)
+				-- print("Sprinting!")
+				if action:GetValue() <= 0 then
+					if enableLogging then
+						spdlog.info('no sprint')
+					end
+					NoSprintObj = action
+					NoSprintSet = true
+				else
+				end
+
 			end
 		end
 
@@ -86,8 +126,9 @@ registerForEvent('onInit', function()
 		-- act.Name = "sprint"
 
 
-		if SprintSet then
+		if SprintSet and WantSprint then
 			action = SprintObj
+		elseif NoSprintSet and not WantSprint then
 		end
 
 		-- spdlog.info(Dump(action))
