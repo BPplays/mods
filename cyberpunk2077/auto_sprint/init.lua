@@ -25,8 +25,8 @@ local ignoreActions = {
 
 registerForEvent('onInit', function()
 	Player = Game.GetPlayer()
-	dmp = Dump(Player, false)
-	dmp = DumpType('PlayerPuppet', false)
+	-- dmp = Dump(Player, false)
+	-- dmp = DumpType('PlayerPuppet', false)
 	-- spdlog.info(dmp)
 	-- print(dmp)
 	Player:RegisterInputListener(Player)
@@ -41,13 +41,13 @@ registerForEvent('onInit', function()
 		-- print(Game.NameToString(action:GetName()))
 		if not action then return end
 
-		spdlog.info(Dump(action))
+		-- spdlog.info(Dump(action))
 		-- print(Dump(action))
 
 		if action:GetType().value == "BUTTON_PRESSED" then
 			if Game.NameToString(action:GetName()) == "Sprint" then
 				-- Sprint button is pressed (or active)
-				print("Sprinting!")
+				-- print("Sprinting!")
 				SprintObj = action
 				SprintSet = true
 			end
@@ -90,8 +90,8 @@ registerForEvent('onInit', function()
 			action = SprintObj
 		end
 
-		spdlog.info(Dump(action))
-		print(Dump(action))
+		-- spdlog.info(Dump(action))
+		-- print(Dump(action))
 
 		-- local res = wrapped(action, consumer)
 		local res = wrapped(action, consumer)
