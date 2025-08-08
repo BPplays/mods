@@ -1,4 +1,5 @@
 
+local enableLogging = false
 
 SprintObj = false
 SprintSet = false
@@ -8,7 +9,6 @@ IsSprinting = false
 
 local triedSprint = false
 ForceSprint = true
-local enableLogging = true
 local ignoreActions = {
 	['BUTTON_RELEASED'] = {
 		['UI_FakeMovement'] = true,
