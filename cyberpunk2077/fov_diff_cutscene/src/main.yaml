@@ -29,7 +29,6 @@ fppCameraParamSets.Vehicle
 fppCameraParamSets.VehicleCombat
 fppCameraParamSets.VehicleGunner
 fppCameraParamSets.VehicleKnockdown
-fppCameraParamSets.VehiclePassenger
 fppCameraParamSets.VehicleTransitions
 fppCameraParamSets.VehicleTransitionsSwitchSeats
 fppCameraParamSets.VehicleTurret
@@ -38,7 +37,6 @@ fppCameraParamSets.Workspot
 fppCameraParamSets.WorkspotLocked
 fppCameraParamSets.WorkspotUnlocked
 fppCameraParamSets.WorkspotUnlockedCameraVerySmall
-fppCameraParamSets.LockedHeading
 cameraPlaneSettings.hud
 cameraPlaneSettings.scene
 cameraPlaneSettings.weapon
