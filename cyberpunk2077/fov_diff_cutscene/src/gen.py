@@ -32,7 +32,7 @@ def main():
 
     main_path = Path(sys.argv[3]) if len(sys.argv) > 3 else Path("./main.yaml")
     cutscene_path = Path(sys.argv[4]) if len(sys.argv) > 4 else Path("./cutscene.yaml")
-    out_path = Path(sys.argv[5]) if len(sys.argv) > 5 else Path("./fov_change.yaml")
+    out_path = Path(sys.argv[5]) if len(sys.argv) > 5 else Path("../fov_override.yaml")
 
     if not main_path.exists():
         print(f"Error: main file not found: {main_path}")
