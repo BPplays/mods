@@ -1,0 +1,26 @@
+
+fppCameraParamSets.ForceDownwardPitch.overrideFovSetting: false
+fppCameraParamSets.ForceDownwardPitch.planeOverrideEnable: false
+fppCameraParamSets.ForceDownwardPitch.toggleOverrideFovSetting: false
+fppCameraParamSets.ForcePitchToEyeLevel.overrideFovSetting: false
+fppCameraParamSets.ForcePitchToEyeLevel.planeOverrideEnable: false
+fppCameraParamSets.ForcePitchToEyeLevel.toggleOverrideFovSetting: false
+fppCameraParamSets.GrappleStruggle.overrideFovSetting: false
+fppCameraParamSets.GrappleStruggle.planeOverrideEnable: false
+fppCameraParamSets.GrappleStruggle.toggleOverrideFovSetting: false
+fppCameraParamSets.GrappleWalk.overrideFovSetting: false
+fppCameraParamSets.GrappleWalk.planeOverrideEnable: false
+fppCameraParamSets.GrappleWalk.toggleOverrideFovSetting: false
+
+
+fppCameraParamSets.LockedHeading.overrideFovSetting: false
+fppCameraParamSets.LockedHeading.planeOverrideEnable: false
+fppCameraParamSets.LockedHeading.toggleOverrideFovSetting: false
+
+
+fppCameraParamSets.Tier3Scene.overrideFovSetting: false
+fppCameraParamSets.Tier3Scene.planeOverrideEnable: false
+fppCameraParamSets.Tier3Scene.toggleOverrideFovSetting: false
+fppCameraParamSets.Tier4Scene.overrideFovSetting: false
+fppCameraParamSets.Tier4Scene.planeOverrideEnable: false
+fppCameraParamSets.Tier4Scene.toggleOverrideFovSetting: false
