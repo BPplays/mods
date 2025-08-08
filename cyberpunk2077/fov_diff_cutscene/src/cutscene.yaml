@@ -6,3 +6,13 @@ fppCameraParamSets.GrappleWalk
 fppCameraParamSets.LockedHeading
 fppCameraParamSets.Tier3Scene
 fppCameraParamSets.Tier4Scene
+fppCameraParamSets.VehiclePassenger
+
+fppCameraParamSets.GrappleWalk
+fppCameraParamSets.GrappleStruggle
+
+fppCameraParamSets.Tier3Scene
+fppCameraParamSets.Tier4Scene
+
+fppCameraParamSets.ForceDownwardPitch
+fppCameraParamSets.ForcePitchToEyeLevel
