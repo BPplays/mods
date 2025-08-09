@@ -11,7 +11,7 @@ NoSprintSet = false
 
 Player = false
 IsSprinting = false
-WantSprint = false
+WantSprint = true
 
 local SprintPressed = false
 ForceSprint = true
@@ -135,61 +135,18 @@ registerForEvent('onInit', function()
 
 
 
-	-- Override('SprintDecisions', 'OnAction', function(self, action, consumer, wrapped)
-	--
-	-- 	-- if (ForceSprint and (not IsSprinting)) then
-	-- 	-- 	self:EnableOnEnterCondition(true)
-	-- 	-- 	-- return true
-	-- 	-- end
-	--
-	-- 	-- act = NewObject("ListenerAction")
-	-- 	-- act.Name = "sprint"
-	--
-	-- 	-- if SprintSet and WantSprint then
-	-- 	-- 	action = SprintObj
-	-- 	-- elseif NoSprintSet and not WantSprint then
-	-- 	-- 	action = NoSprintObj
-	-- 	-- end
-	--
-	-- 	-- spdlog.info(Dump(action))
-	-- 	-- print(Dump(action))
-	--
-	-- 	-- local res = wrapped(action, consumer)
-	--
-	-- 	if enableLoggingSact then
-	-- 		local actionName = Game.NameToString(action:GetName())
-	-- 		local actionType = action:GetType().value -- gameinputActionType
-	-- 		local actionValue = action:GetValue()
-	--
-	-- 		if not ignoreActions[actionType] or not ignoreActions[actionType][actionName] then
-	-- 			spdlog.info(('[%s] %s = %.3f'):format(actionType, actionName, actionValue))
-	-- 		end
-	-- 	end
-	--
-	-- 	obj = NewObject("gameinputScriptListenerAction")
-	-- 	print(Dump(obj))
-	-- 	print(Dump(self))
-	-- 	print("bef", self.sprintPressed)
-	-- 	self.sprintPressed = true
-	-- 	print("aft", self.sprintPressed)
-	-- 	local res = wrapped(action, consumer)
-	-- 	return res
-	-- end)
+	Override('SprintDecisions', 'OnAction', function(self, action, consumer, wrapped)
+		self.sprintPressed = WantSprint
+		local res = wrapped(action, consumer)
+		return res
+	end)
 
 	Override('SprintDecisions', 'EnterCondition', function(self, stateContext, scriptInterface, wrap)
-
-		if WantSprint then
-			self.sprintPressed = true
-		else
-			self.sprintPressed = false
-		end
+		self.sprintPressed = WantSprint
 		return wrap(stateContext, scriptInterface)
-		-- if SprintSet and WantSprint then
-		-- 	return true
-		-- end
-		--
-		-- return false
 	end)
+
+
 end)
 
 
