@@ -1,5 +1,5 @@
 
-local enableLogging = false
+local enableLogging = true
 
 Player = false
 WantSprint = true
@@ -15,6 +15,26 @@ local ignoreActions = {
 		['CameraMouseY'] = true,
 		['mouse_x'] = true,
 		['mouse_y'] = true,
+	},
+}
+
+local sprintActions = {
+	['BUTTON_PRESSED'] = {
+		['Sprint'] = true,
+		['ToggleSprint'] = true,
+	},
+}
+
+
+local noSprintActions = {
+	['BUTTON_HOLD_COMPLETE'] = {
+		['Sprint'] = true,
+		['ToggleSprint'] = true,
+	},
+
+	['BUTTON_RELEASED'] = {
+		['Sprint'] = true,
+		['ToggleSprint'] = true,
 	},
 }
 
@@ -36,54 +56,41 @@ registerForEvent('onInit', function()
 		-- print(Game.NameToString(action:GetName()))
 		if not action then return end
 
-		-- spdlog.info(Dump(action))
-		-- print(Dump(action))
+		local actionName = Game.NameToString(action:GetName())
+		local actionType = action:GetType().value -- gameinputActionType
+		local actionValue = action:GetValue()
 
-		if action:GetType().value == "BUTTON_PRESSED" then
-			if Game.NameToString(action:GetName()) == "Sprint" then
-				-- Sprint button is pressed (or active)
-				-- print("Sprinting!")
-				if action:GetValue() > 0 then
-
-					if not SprintPressed then
-						WantSprint = not WantSprint
-						if enableLogging then
-							print("toggle WantSprint", WantSprint)
-						end
-						SprintPressed = true
-					end
-
-
-					if enableLogging then
-						spdlog.info('sprint')
-					end
+		-- if action:GetType().value == "BUTTON_PRESSED" then
+		if sprintActions[actionType] and
+		sprintActions[actionType][actionName] then
+			if not SprintPressed then
+				WantSprint = not WantSprint
+				if enableLogging then
+					print("toggle WantSprint", WantSprint)
 				end
-
-			end
-		elseif action:GetType().value == "BUTTON_HOLD_COMPLETE" then
-			if Game.NameToString(action:GetName()) == "Sprint" then
-				-- Sprint button is pressed (or active)
-				-- print("Sprinting!")
-				if action:GetValue() <= 0 or true then
-					SprintPressed = false
-				else
-				end
-
+				SprintPressed = true
 			end
 
-		elseif action:GetType().value == "BUTTON_RELEASED" then
-			if Game.NameToString(action:GetName()) == "Sprint" then
-				SprintPressed = false
+
+			if enableLogging then
+				spdlog.info('sprint')
 			end
 		end
 
+		if noSprintActions[actionType] and
+		noSprintActions[actionType][actionName] then
+
+				if enableLogging then
+					spdlog.info('nosprint')
+				end
+			SprintPressed = false
+		end
+
 		if enableLogging then
-			local actionName = Game.NameToString(action:GetName())
-			local actionType = action:GetType().value -- gameinputActionType
-			local actionValue = action:GetValue()
 
 			if not ignoreActions[actionType] or not ignoreActions[actionType][actionName] then
 				spdlog.info(('read[%s] %s = %.3f'):format(actionType, actionName, actionValue))
+				spdlog.info(('is in sprint [%s]'):format(sprintActions[actionType][actionName]))
 			end
 		end
 	end)
