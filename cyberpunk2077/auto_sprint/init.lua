@@ -1,20 +1,10 @@
 
 local enableLogging = false
-local enableLoggingSact = false
-
-SprintObj = false
-SprintSet = false
-
-
-NoSprintObj = false
-NoSprintSet = false
 
 Player = false
-IsSprinting = false
 WantSprint = true
 
 local SprintPressed = false
-ForceSprint = true
 local ignoreActions = {
 	['BUTTON_RELEASED'] = {
 		['UI_FakeMovement'] = true,
@@ -27,25 +17,6 @@ local ignoreActions = {
 		['mouse_y'] = true,
 	},
 }
-
-local spoof = {
-  GetName = function() return "Sprint" end,
-  GetValue = function() return 1.0 end
-}
-
-
-
-registerInput('bp.auto_sprint.toggle', 'toggle sprint', function(keypress)
-    if not keypress then
-        return
-    end
-	WantSprint = not WantSprint
-
-	if enableLogging then
-		print("toggle WantSprint", WantSprint)
-	end
-
-end)
 
 
 registerForEvent('onInit', function()
@@ -73,8 +44,6 @@ registerForEvent('onInit', function()
 				-- Sprint button is pressed (or active)
 				-- print("Sprinting!")
 				if action:GetValue() > 0 then
-					SprintObj = action
-					SprintSet = true
 
 					if not SprintPressed then
 						WantSprint = not WantSprint
@@ -96,11 +65,6 @@ registerForEvent('onInit', function()
 				-- Sprint button is pressed (or active)
 				-- print("Sprinting!")
 				if action:GetValue() <= 0 or true then
-					if enableLogging then
-						spdlog.info('no sprint')
-					end
-					NoSprintObj = action
-					NoSprintSet = true
 					SprintPressed = false
 				else
 				end
@@ -126,12 +90,12 @@ registerForEvent('onInit', function()
 
 
 
-    Observe('SprintEvents', 'OnEnter', function()
-        IsSprinting = true
-    end)
-    Observe('SprintEvents', 'OnExit', function()
-        IsSprinting = false
-    end)
+    -- Observe('SprintEvents', 'OnEnter', function()
+    --     IsSprinting = true
+    -- end)
+    -- Observe('SprintEvents', 'OnExit', function()
+    --     IsSprinting = false
+    -- end)
 
 
 
