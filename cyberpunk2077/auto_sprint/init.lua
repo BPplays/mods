@@ -3,6 +3,7 @@ local enableLogging = true
 
 Player = false
 WantSprint = true
+UseToggleSprint = true
 
 local SprintPressed = false
 local ignoreActions = {
@@ -21,8 +22,9 @@ local ignoreActions = {
 local sprintActions = {
 	['BUTTON_PRESSED'] = {
 		['Sprint'] = true,
-		['ToggleSprint'] = true,
+		-- ['ToggleSprint'] = true,
 	},
+
 }
 
 
@@ -31,13 +33,21 @@ local noSprintActions = {
 		['Sprint'] = true,
 		['ToggleSprint'] = true,
 	},
-
 	['BUTTON_RELEASED'] = {
 		['Sprint'] = true,
 		['ToggleSprint'] = true,
 	},
 }
 
+-- local noTogSprintActions = {
+-- 	['BUTTON_HOLD_COMPLETE'] = {
+-- 		['ToggleSprint'] = true,
+-- 	},
+-- 	['BUTTON_RELEASED'] = {
+-- 		['ToggleSprint'] = true,
+-- 	},
+-- }
+--
 
 registerForEvent('onInit', function()
 	Player = Game.GetPlayer()
@@ -60,9 +70,27 @@ registerForEvent('onInit', function()
 		local actionType = action:GetType().value -- gameinputActionType
 		local actionValue = action:GetValue()
 
+		if actionName == "ToggleSprint" then
+			UseToggleSprint = true
+			WantSprint = not WantSprint
+			print(actionName, actionType)
+		end
 		-- if action:GetType().value == "BUTTON_PRESSED" then
 		if sprintActions[actionType] and
 		sprintActions[actionType][actionName] then
+
+			UseToggleSprint = false
+			if actionName == "ToggleSprint" then
+				SprintPressed = false
+				if enableLogging then
+					print("using tog")
+				end
+				UseToggleSprint = true
+			end
+			if enableLogging then
+				print("UseToggleSprint, ", UseToggleSprint)
+			end
+
 			if not SprintPressed then
 				WantSprint = not WantSprint
 				if enableLogging then
@@ -75,22 +103,30 @@ registerForEvent('onInit', function()
 			if enableLogging then
 				spdlog.info('sprint')
 			end
-		end
-
-		if noSprintActions[actionType] and
+		elseif noSprintActions[actionType] and
 		noSprintActions[actionType][actionName] then
 
+			-- if actionName == "ToggleSprint" then
+			-- 	print("tog sprint rel got in")
+			-- end
 				if enableLogging then
 					spdlog.info('nosprint')
 				end
 			SprintPressed = false
+
+		-- elseif noTogSprintActions[actionType] and
+		-- noTogSprintActions[actionType][actionName] then
+		--
+		-- 	if enableLogging then
+		-- 		spdlog.info('disable toggle sprint')
+		-- 	end
+		-- 	WantSprint = false
 		end
 
 		if enableLogging then
 
 			if not ignoreActions[actionType] or not ignoreActions[actionType][actionName] then
 				spdlog.info(('read[%s] %s = %.3f'):format(actionType, actionName, actionValue))
-				spdlog.info(('is in sprint [%s]'):format(sprintActions[actionType][actionName]))
 			end
 		end
 	end)
@@ -106,15 +142,55 @@ registerForEvent('onInit', function()
 
 
 
+
 	Override('SprintDecisions', 'OnAction', function(self, action, consumer, wrapped)
 		local res = wrapped(action, consumer)
-		self.sprintPressed = WantSprint
+		if enableLogging then
+			print(Game.NameToString(action:GetName()), action:GetType().value)
+		end
+
+
+		if not UseToggleSprint and false then
+			self.sprintPressed = WantSprint
+			self.toggleSprintPressed = false
+			stateContext:SetConditionBoolParameter(CName("SprintToggled"), false, true)
+		else
+			self.sprintPressed = false
+			self.toggleSprintPressed = WantSprint
+			stateContext:SetConditionBoolParameter(CName("SprintToggled"), WantSprint, true)
+		end
 		return res
 	end)
 
 	Override('SprintDecisions', 'EnterCondition', function(self, stateContext, scriptInterface, wrap)
-		self.sprintPressed = WantSprint
-		return wrap(stateContext, scriptInterface)
+		if not UseToggleSprint and false then
+			self.sprintPressed = WantSprint
+			self.toggleSprintPressed = false
+			stateContext:SetConditionBoolParameter(CName("SprintToggled"), false, true)
+		else
+			self.sprintPressed = false
+			self.toggleSprintPressed = WantSprint
+			stateContext:SetConditionBoolParameter(CName("SprintToggled"), WantSprint, true)
+
+			if not WantSprint then
+				if enableLogging then
+					print("fast disable")
+				end
+				return false
+			end
+		end
+
+		-- if enableLogging then
+		-- 	-- print(Dump(stateContext))
+		-- 	-- print("st, ", stateContext:GetConditionBool(CName("SprintToggled")))
+		-- end
+
+		local res = wrap(stateContext, scriptInterface)
+
+		if not UseToggleSprint then
+			stateContext:SetConditionBoolParameter(CName("SprintToggled"), false, true)
+		end
+		return res
 	end)
 
 
