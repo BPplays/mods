@@ -1,5 +1,5 @@
 
-local enableLogging = true
+local enableLogging = false
 
 Player = false
 WantSprint = true
@@ -22,7 +22,7 @@ local ignoreActions = {
 local sprintActions = {
 	['BUTTON_PRESSED'] = {
 		['Sprint'] = true,
-		-- ['ToggleSprint'] = true,
+		['ToggleSprint'] = true,
 	},
 
 }
@@ -70,11 +70,6 @@ registerForEvent('onInit', function()
 		local actionType = action:GetType().value -- gameinputActionType
 		local actionValue = action:GetValue()
 
-		if actionName == "ToggleSprint" then
-			UseToggleSprint = true
-			WantSprint = not WantSprint
-			print(actionName, actionType)
-		end
 		-- if action:GetType().value == "BUTTON_PRESSED" then
 		if sprintActions[actionType] and
 		sprintActions[actionType][actionName] then
@@ -144,41 +139,23 @@ registerForEvent('onInit', function()
 
 
 	Override('SprintDecisions', 'OnAction', function(self, action, consumer, wrapped)
+		stateContext:SetConditionBoolParameter(CName("SprintToggled"), WantSprint, true)
 		local res = wrapped(action, consumer)
 		if enableLogging then
 			print(Game.NameToString(action:GetName()), action:GetType().value)
 		end
 
 
-		if not UseToggleSprint and false then
-			self.sprintPressed = WantSprint
-			self.toggleSprintPressed = false
-			stateContext:SetConditionBoolParameter(CName("SprintToggled"), false, true)
-		else
-			self.sprintPressed = false
-			self.toggleSprintPressed = WantSprint
-			stateContext:SetConditionBoolParameter(CName("SprintToggled"), WantSprint, true)
-		end
+		self.sprintPressed = WantSprint
+		self.toggleSprintPressed = false
+		stateContext:SetConditionBoolParameter(CName("SprintToggled"), WantSprint, true)
 		return res
 	end)
 
 	Override('SprintDecisions', 'EnterCondition', function(self, stateContext, scriptInterface, wrap)
-		if not UseToggleSprint and false then
-			self.sprintPressed = WantSprint
-			self.toggleSprintPressed = false
-			stateContext:SetConditionBoolParameter(CName("SprintToggled"), false, true)
-		else
-			self.sprintPressed = false
-			self.toggleSprintPressed = WantSprint
-			stateContext:SetConditionBoolParameter(CName("SprintToggled"), WantSprint, true)
-
-			if not WantSprint then
-				if enableLogging then
-					print("fast disable")
-				end
-				return false
-			end
-		end
+		self.sprintPressed = WantSprint
+		self.toggleSprintPressed = false
+		stateContext:SetConditionBoolParameter(CName("SprintToggled"), WantSprint, true)
 
 		-- if enableLogging then
 		-- 	-- print(Dump(stateContext))
@@ -188,7 +165,7 @@ registerForEvent('onInit', function()
 		local res = wrap(stateContext, scriptInterface)
 
 		if not UseToggleSprint then
-			stateContext:SetConditionBoolParameter(CName("SprintToggled"), false, true)
+			stateContext:SetConditionBoolParameter(CName("SprintToggled"), WantSprint, true)
 		end
 		return res
 	end)
