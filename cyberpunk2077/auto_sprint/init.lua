@@ -136,8 +136,8 @@ registerForEvent('onInit', function()
 
 
 	Override('SprintDecisions', 'OnAction', function(self, action, consumer, wrapped)
-		self.sprintPressed = WantSprint
 		local res = wrapped(action, consumer)
+		self.sprintPressed = WantSprint
 		return res
 	end)
 
