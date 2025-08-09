@@ -139,7 +139,7 @@ registerForEvent('onInit', function()
 
 
 	Override('SprintDecisions', 'OnAction', function(self, action, consumer, wrapped)
-		stateContext:SetConditionBoolParameter(CName("SprintToggled"), WantSprint, true)
+		-- stateContext:SetConditionBoolParameter(CName("SprintToggled"), WantSprint, true)
 		local res = wrapped(action, consumer)
 		if enableLogging then
 			print(Game.NameToString(action:GetName()), action:GetType().value)
@@ -148,14 +148,14 @@ registerForEvent('onInit', function()
 
 		self.sprintPressed = WantSprint
 		self.toggleSprintPressed = false
-		stateContext:SetConditionBoolParameter(CName("SprintToggled"), WantSprint, true)
+		-- stateContext:SetConditionBoolParameter(CName("SprintToggled"), WantSprint, true)
 		return res
 	end)
 
 	Override('SprintDecisions', 'EnterCondition', function(self, stateContext, scriptInterface, wrap)
 		self.sprintPressed = WantSprint
 		self.toggleSprintPressed = false
-		stateContext:SetConditionBoolParameter(CName("SprintToggled"), WantSprint, true)
+		-- stateContext:SetConditionBoolParameter(CName("SprintToggled"), WantSprint, true)
 
 		-- if enableLogging then
 		-- 	-- print(Dump(stateContext))
@@ -164,9 +164,7 @@ registerForEvent('onInit', function()
 
 		local res = wrap(stateContext, scriptInterface)
 
-		if not UseToggleSprint then
-			stateContext:SetConditionBoolParameter(CName("SprintToggled"), WantSprint, true)
-		end
+		-- stateContext:SetConditionBoolParameter(CName("SprintToggled"), WantSprint, true)
 		return res
 	end)
 
