@@ -3,7 +3,7 @@ local enableLogging = false
 
 Player = false
 WantSprint = true
-UseToggleSprint = true
+UseToggleSprint = false
 
 local SprintPressed = false
 local ignoreActions = {
