@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<InstalLog Project="fpp_shadow_mesh_fixes" Build_date="2025年08月10日 21:03:48">
+  <Files>
+    <Directory Path="F:\programs\games\steam\steamapps\common\Cyberpunk 2077\mods">
+      <Directory Path="F:\programs\games\steam\steamapps\common\Cyberpunk 2077\mods\fpp_shadow_mesh_fixes">
+        <file>F:\programs\games\steam\steamapps\common\Cyberpunk 2077\mods\fpp_shadow_mesh_fixes\info.json</file>
+        <Directory Path="F:\programs\games\steam\steamapps\common\Cyberpunk 2077\mods\fpp_shadow_mesh_fixes\archives">
+          <file>F:\programs\games\steam\steamapps\common\Cyberpunk 2077\mods\fpp_shadow_mesh_fixes\archives\fpp_shadow_mesh_fixes.archive</file>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Files>
+</InstalLog>

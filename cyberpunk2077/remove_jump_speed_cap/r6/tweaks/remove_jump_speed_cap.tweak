@@ -1,0 +1,32 @@
+package PlayerLocomotion
+using RTDB, BaseStats
+
+player_locomotion_data_Sprint : StatModifierGroup
+{
+	fk< StatModifier >[] statModifiers = 
+	[
+		{
+		} : BaseLocomotionStateMinSpeedModifier, 
+		{
+		} : BaseLocomotionStateMaxSpeedModifier, 
+		{
+		} : BaseLocomotionStateAccelerationModifier, 
+		{
+		} : BaseLocomotionStateDecelerationModifier, 
+		{
+		} : BaseLocomotionStateBrakeModifier, 
+		{
+		} : BaseLocomotionStateBrakeDotModifier, 
+			0.0
+		{
+		} : BaseLocomotionStateJumpHeightModifier, 
+		{
+		} : BaseLocomotionStateSpeedBoostModifier, 
+		{
+		} : BaseLocomotionStateSpeedBoostMaxSpeedModifier, 
+		{
+		} : BaseLocomotionStateAllowMovementInputModifier, 
+		{
+		} : BaseLocomotionStateAllowRotationModifier
+	];
+}
