@@ -99,7 +99,7 @@ function ImmersiveFirstPerson.HandleCamera(force)
 		return
 	end
 
-	if not ShouldSetCamera() then
+	if not ShouldSetCamera(false) then
 		-- BVFP wil set camera automatically
 		if Helpers.IsInVehicle() and Helpers.HasBVFP() then
 			return
@@ -164,7 +164,8 @@ function ImmersiveFirstPerson.HandleCamera(force)
 	local shift = math.min(1, progress * 4) * Vars.SHIFT_BASE_VALUE * crouchMultShift * shiftInitialSlowDown + poopshit
 	-- local shift = math.max(math.min(1.4, progress * 4), 1.8) * Vars.SHIFT_BASE_VALUE * crouchMultShift * shiftInitialSlowDown + poopshit
 
-	shift = Helpers.Interp(shift, shift-0.23, Helpers.toRange(curPitch, -30, -80))
+	shift = Helpers.Interp(shift, shift-0.33, Helpers.toRange(curPitch, -30, -80))
+	shift = Helpers.Interp(shift, shift+0.10, Helpers.toRange(curPitch, -30, -50))
 
 	-- Height goes gradually from 0 to N to -N
 	local heightInitialBoost = math.max(-0.16, 5*progress - math.max(0, (progress-Vars.HEIGHT_INCREASE_KEY_POINT)*8.5))
@@ -173,7 +174,6 @@ function ImmersiveFirstPerson.HandleCamera(force)
 	local height = math.min(1, progress * 1.0) * Vars.HEIGHT_BASE_VALUE * (isCrouching and 1 or heightInitialBoost) * crouchMultHeight
 
 	local lean = math.min(1, progress * 1.0) * Vars.LEAN_BASE_VALUE * crouchMultLean
-	local lean = math.max(lean, 0.5)
 	if Helpers.IsFreeObservation() then
 		lean = nil
 	end
