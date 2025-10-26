@@ -1,0 +1,405 @@
+[2025-08-07 23:12:54 UTC-07:00] [73736] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-08 00:06:07 UTC-07:00] [56260] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-08 00:50:06 UTC-07:00] [65600] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-08 20:59:27 UTC-07:00] [67608] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-08 22:02:56 UTC-07:00] [91256] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-08 22:11:17 UTC-07:00] [89072] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-09 01:30:53 UTC-07:00] [59764] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-09 03:07:32 UTC-07:00] [24496] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-09 04:45:35 UTC-07:00] [86096] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-09 11:17:40 UTC-07:00] [55840] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-09 17:24:05 UTC-07:00] [70352] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-09 20:37:28 UTC-07:00] [96792] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-09 21:02:24 UTC-07:00] [103948] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-09 21:19:38 UTC-07:00] [98396] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-10 00:12:24 UTC-07:00] [86176] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-10 00:22:09 UTC-07:00] [95656] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-10 00:25:27 UTC-07:00] [99456] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-10 00:42:31 UTC-07:00] [52636] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-10 00:44:46 UTC-07:00] [90032] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-10 06:39:15 UTC-07:00] [85448] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-10 20:39:20 UTC-07:00] [19988] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-10 20:55:42 UTC-07:00] [120824] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-10 20:57:21 UTC-07:00] [69296] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-10 21:02:59 UTC-07:00] [110744] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-10 21:09:53 UTC-07:00] [121480] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-10 21:14:55 UTC-07:00] [13564] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-10 21:19:21 UTC-07:00] [105320] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-10 21:23:46 UTC-07:00] [96708] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-11 00:13:58 UTC-07:00] [5972] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-11 01:16:23 UTC-07:00] [110832] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-11 01:55:30 UTC-07:00] [64008] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-11 02:04:42 UTC-07:00] [48944] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-11 02:09:04 UTC-07:00] [99920] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-11 02:21:48 UTC-07:00] [122892] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-11 03:25:47 UTC-07:00] [94660] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-11 03:42:19 UTC-07:00] [21468] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-11 03:53:12 UTC-07:00] [109704] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-11 04:03:07 UTC-07:00] [60120] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-11 04:04:55 UTC-07:00] [98204] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-11 04:06:02 UTC-07:00] [45072] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-11 05:20:23 UTC-07:00] [117688] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-11 06:21:40 UTC-07:00] [108124] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-11 07:47:21 UTC-07:00] [123748] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-12 03:46:57 UTC-07:00] [126312] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-12 03:49:22 UTC-07:00] [153048] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-12 04:44:14 UTC-07:00] [144792] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-12 09:24:05 UTC-07:00] [21432] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-12 09:50:18 UTC-07:00] [101224] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-12 12:31:45 UTC-07:00] [110900] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-12 12:36:19 UTC-07:00] [37288] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-12 14:15:00 UTC-07:00] [136444] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-13 03:59:25 UTC-07:00] [30960] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-13 11:18:41 UTC-07:00] [127224] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-16 04:35:32 UTC-07:00] [38080] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-16 11:20:03 UTC-07:00] [188500] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-17 10:34:45 UTC-07:00] [238948] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-17 10:35:55 UTC-07:00] [167980] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-17 10:38:39 UTC-07:00] [227832] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-17 12:12:42 UTC-07:00] [126044] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-17 21:35:58 UTC-07:00] [82644] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-19 06:32:41 UTC-07:00] [53916] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-19 07:01:51 UTC-07:00] [57708] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-19 10:20:12 UTC-07:00] [15564] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-19 13:21:55 UTC-07:00] [59664] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-19 13:23:44 UTC-07:00] [58736] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-19 14:02:00 UTC-07:00] [47808] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-21 22:05:58 UTC-07:00] [92568] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-08-31 00:49:43 UTC-07:00] [98820] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-09-01 16:42:29 UTC-07:00] [152300] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-09-02 00:09:35 UTC-07:00] [154504] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-09-04 23:31:55 UTC-07:00] [147464] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-09-05 04:59:58 UTC-07:00] [59232] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-09-05 21:59:23 UTC-07:00] [46308] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-09-06 01:05:20 UTC-07:00] [132020] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-10-04 19:35:12 UTC-07:00] [115728] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-10-04 23:36:09 UTC-07:00] [32568] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-10-04 23:48:43 UTC-07:00] [53040] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-10-05 08:25:48 UTC-07:00] [188816] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-10-05 17:27:15 UTC-07:00] [214424] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-10-25 08:59:03 UTC-07:00] [119412] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
+[2025-10-25 09:03:08 UTC-07:00] [117808] ...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: attempt to index a nil value
+stack traceback:
+	...weaks\mods\ImmersiveFirstPerson\Modules\GameSettings.lua:171: in function 'Set'
+	...ine_tweaks\mods\ImmersiveFirstPerson\Modules\Helpers.lua:157: in function 'UnlockMovement'
+	init.lua:388: in function <init.lua:387>
