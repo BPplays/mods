@@ -99,10 +99,10 @@ namespace stutter_fix
         {
             if (rb == null) return;
             // Skip camera rigs
-            if (rb.CompareTag("MainCamera") || rb.GetComponentInChildren<Camera>() != null) {
-                rb.interpolation = RigidbodyInterpolation.None;
-                return;
-            }
+            // if (rb.CompareTag("MainCamera") || rb.GetComponentInChildren<Camera>() != null) {
+            //     rb.interpolation = RigidbodyInterpolation.None;
+            //     return;
+            // }
 
             if (rb.isKinematic) {
                 rb.interpolation = RigidbodyInterpolation.None;
@@ -270,7 +270,7 @@ namespace stutter_fix
                 forward = Vector3.zero;
             }
 
-            float lookOffset = 0.1f;
+            float lookOffset = 0.15f;
 
             // CamParent.position = interpolatedThPos + offset + (forward * lookOffset);
             CamParent.position = extrapolatedThPos + offset + (forward * lookOffset);
