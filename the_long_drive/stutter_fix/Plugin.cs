@@ -98,6 +98,12 @@ namespace stutter_fix
         internal static void Apply(Rigidbody rb)
         {
             if (rb == null) return;
+            // Skip camera rigs
+            if (rb.CompareTag("MainCamera") || rb.GetComponentInChildren<Camera>() != null) {
+                rb.interpolation = RigidbodyInterpolation.None;
+                return;
+            }
+
             if (rb.isKinematic) {
                 rb.interpolation = RigidbodyInterpolation.None;
                 return;
@@ -154,8 +160,7 @@ namespace stutter_fix
         }
     }
 
-    internal class CameraLateSync : MonoBehaviour
-    {
+    internal class CameraLateSync : MonoBehaviour {
         private MonoBehaviour _fps;
 
         private FieldInfo _fTh;
@@ -236,12 +241,41 @@ namespace stutter_fix
             // Interpolated physics position only.
             Vector3 interpolatedThPos = Vector3.Lerp(_prevThPos, _currThPos, alpha);
 
-            // Apply the interpolated world position for rendering.
-            Th.position = interpolatedThPos;
+            float fixedDt = Time.fixedDeltaTime;
+            float renderDt = Time.time - Time.fixedTime;
+            renderDt = Mathf.Min(renderDt, 0.15f);
+
+            // avoid div by zero
+            Vector3 velocity = fixedDt > 0f
+                ? (_currThPos - _prevThPos) / fixedDt
+                : Vector3.zero;
+
+            Vector3 extrapolatedThPos = _currThPos + velocity * renderDt;
+
+            // // Apply the interpolated world position for rendering.
+            // Th.position = interpolatedThPos;
 
             // Keep the camera local offset clean if it is parented to Th.
-            if (CamParent.parent == Th && CamParent.localPosition != Vector3.zero)
+            if (CamParent.parent == Th && CamParent.localPosition != Vector3.zero) {
                 CamParent.localPosition = Vector3.zero;
+            }
+
+            Vector3 offset = CamParent.position - Th.position;
+            Vector3 forward = CamParent.forward;
+            forward.y = 0f;
+
+            if (forward.sqrMagnitude > 0.0001f) {
+                forward.Normalize();
+            } else {
+                forward = Vector3.zero;
+            }
+
+            float lookOffset = 0.1f;
+
+            // CamParent.position = interpolatedThPos + offset + (forward * lookOffset);
+            CamParent.position = extrapolatedThPos + offset + (forward * lookOffset);
+
+            // CamParent.localPosition += forward;
         }
     }
 
