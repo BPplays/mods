@@ -243,7 +243,7 @@ namespace stutter_fix
 
             float fixedDt = Time.fixedDeltaTime;
             float renderDt = Time.time - Time.fixedTime;
-            renderDt = Mathf.Min(renderDt, 0.15f);
+            renderDt = Mathf.Min(renderDt, 0.05f);
 
             // avoid div by zero
             Vector3 velocity = fixedDt > 0f
