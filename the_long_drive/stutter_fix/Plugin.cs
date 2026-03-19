@@ -34,9 +34,13 @@ namespace stutter_fix
             Log.LogInfo("[RigidbodyInterpolation] Awake entered.");
 
             var go = new GameObject("RigidbodyInterpolationUpdater");
+
             DontDestroyOnLoad(go);
             go.hideFlags = HideFlags.HideAndDontSave;
-            go.AddComponent<Updater>();
+
+            var updater = go.AddComponent<Updater>();
+            updater.ScanInterval = _scanInterval.Value;
+            updater.Mode = _interpolationMode.Value;
 
             _interpolationMode = Config.Bind(
                 "General",
@@ -114,7 +118,11 @@ namespace stutter_fix
     internal class Updater : MonoBehaviour {
         private float _nextScanTime;
         private bool doneFirstScanLog = false;
-        private RigidbodyInterpolationPlugin _plugin;
+
+        private static Updater _instance;
+        private static Updater Instance => _instance;
+
+        internal static RigidbodyInterpolation InstanceMode => Instance._interpolationMode.Value;
 
         public ConfigEntry<RigidbodyInterpolation> _interpolationMode;
         public ConfigEntry<float> _scanInterval;
@@ -122,6 +130,7 @@ namespace stutter_fix
         private void Start()
         {
             RigidbodyInterpolationPlugin.Log.LogInfo("[Updater] Started");
+            _instance = this;
             _nextScanTime = Time.unscaledTime + RigidbodyInterpolationPlugin.InstanceMode switch
             {
                 _ => 0f
@@ -146,17 +155,10 @@ namespace stutter_fix
                 return;
             }
 
-            _nextScanTime = Time.unscaledTime + plugin._scanInterval.Value;
+            _nextScanTime = Time.unscaledTime + _scanInterval;
 
             RigidbodyInterpolationPlugin.Log.LogInfo("[Updater] Scan tick");
             RigidbodyInterpolationPlugin.ApplyToAll();
-        }
-
-        private RigidbodyInterpolationPlugin GetPlugin() {
-            if (_plugin == null) {
-                _plugin = FindObjectOfType<RigidbodyInterpolationPlugin>();
-            }
-            return _plugin;
         }
     }
 
