@@ -9,6 +9,7 @@ using BepInEx.Logging;
 using HarmonyLib;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR;
 
 namespace stutter_fix
 {
@@ -158,13 +159,14 @@ namespace stutter_fix
         private MonoBehaviour _fps;
 
         private FieldInfo _fTh;
-        private FieldInfo _fTHeadLean;
-        private FieldInfo _fFHeadLerp;
         private FieldInfo _fCamParent;
         private FieldInfo _fBsitting;
-        private FieldInfo _fTHeadBob;
 
         private bool _ready;
+
+        private Vector3 _prevThPos;
+        private Vector3 _currThPos;
+        private bool _haveSamples;
 
         public void Init(MonoBehaviour fps)
         {
@@ -172,70 +174,74 @@ namespace stutter_fix
             var t = fps.GetType();
 
             _fTh        = AccessTools.Field(t, "Th");
-            _fTHeadLean = AccessTools.Field(t, "THeadLean");
-            _fFHeadLerp = AccessTools.Field(t, "FHeadLerp");
             _fCamParent = AccessTools.Field(t, "CamParent");
             _fBsitting  = AccessTools.Field(t, "Bsitting");
-            _fTHeadBob  = AccessTools.Field(t, "THeadBob");
 
             foreach (var (name, fi) in new[]
-            {
-                ("Th",        _fTh),
-                ("THeadLean", _fTHeadLean),
-                ("FHeadLerp", _fFHeadLerp),
-                ("CamParent", _fCamParent),
-                ("Bsitting",  _fBsitting),
-                ("THeadBob",  _fTHeadBob),
-            })
+                    {
+                    ("Th",        _fTh),
+                    ("CamParent", _fCamParent),
+                    ("Bsitting",  _fBsitting),
+                    })
             {
                 if (fi == null)
                     RigidbodyInterpolationPlugin.Log.LogWarning(
-                        $"[CameraLateSync] Could not find field '{name}' on {t.Name}");
+                            $"[CameraLateSync] Could not find field '{name}' on {t.Name}");
             }
 
-            _ready = _fTh != null && _fTHeadLean != null &&
-                     _fFHeadLerp != null && _fCamParent != null;
+            _ready = _fTh != null && _fCamParent != null;
 
             RigidbodyInterpolationPlugin.Log.LogInfo(
-                $"[CameraLateSync] Init complete on '{fps.name}', ready={_ready}");
+                    $"[CameraLateSync] Init complete on '{fps.name}', ready={_ready}");
+        }
+
+        private void FixedUpdate()
+        {
+            if (!_ready || _fps == null) return;
+
+            var Th = _fTh.GetValue(_fps) as Transform;
+            if (Th == null) return;
+
+            if (!_haveSamples)
+            {
+                _prevThPos = Th.position;
+                _currThPos = Th.position;
+                _haveSamples = true;
+                return;
+            }
+
+            _prevThPos = _currThPos;
+            _currThPos = Th.position;
         }
 
         private void LateUpdate()
         {
             if (!_ready || _fps == null) return;
-            if (UnityEngine.XR.XRSettings.enabled) return;
+            if (XRSettings.enabled) return;
+            if (!_haveSamples) return;
 
-            var Th        = _fTh.GetValue(_fps)       as Transform;
-            var THeadLean = _fTHeadLean.GetValue(_fps) as Transform;
+            var Th        = _fTh.GetValue(_fps) as Transform;
             var CamParent = _fCamParent.GetValue(_fps) as Transform;
-            var Bsitting  = _fBsitting != null && (bool)_fBsitting.GetValue(_fps);
 
-            if (Th == null || THeadLean == null || CamParent == null) {
-                RigidbodyInterpolationPlugin.Log.LogInfo(
-                $"[CameraLateSync] skipping late update");
+            if (Th == null || CamParent == null)
+            {
+                RigidbodyInterpolationPlugin.Log.LogInfo("[CameraLateSync] skipping late update");
                 return;
             }
 
-            float FHeadLerp = (float)(_fFHeadLerp?.GetValue(_fps) ?? 8f);
-            float dt = Time.deltaTime;
+            float alpha = 0f;
+            if (Time.fixedDeltaTime > 0f)
+                alpha = Mathf.Clamp01((Time.time - Time.fixedTime) / Time.fixedDeltaTime);
 
-            // debug test
-            // Th.position += Vector3.up * 2.0f;
+            // Interpolated physics position only.
+            Vector3 interpolatedThPos = Vector3.Lerp(_prevThPos, _currThPos, alpha);
 
-            if (Bsitting && _fTHeadBob != null)
-            {
-                var THeadBob = _fTHeadBob.GetValue(_fps) as Transform;
-                if (THeadBob != null)
-                    Th.position = Vector3.Lerp(Th.position, THeadBob.position, FHeadLerp * dt);
-            }
-            else
-            {
-                Th.position = Vector3.Lerp(Th.position, THeadLean.position, FHeadLerp * dt);
-            }
+            // Apply the interpolated world position for rendering.
+            Th.position = interpolatedThPos;
 
-            if (CamParent.parent == Th && CamParent.localPosition != Vector3.zero) {
+            // Keep the camera local offset clean if it is parented to Th.
+            if (CamParent.parent == Th && CamParent.localPosition != Vector3.zero)
                 CamParent.localPosition = Vector3.zero;
-            }
         }
     }
 
