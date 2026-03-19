@@ -39,8 +39,8 @@ namespace stutter_fix
             go.hideFlags = HideFlags.HideAndDontSave;
 
             var updater = go.AddComponent<Updater>();
-            updater.ScanInterval = _scanInterval.Value;
-            updater.Mode = _interpolationMode.Value;
+            // updater._scanInterval = _scanInterval.Value;
+            // updater._interpolationMode = _interpolationMode.Value;
 
             _interpolationMode = Config.Bind(
                 "General",
@@ -119,18 +119,18 @@ namespace stutter_fix
         private float _nextScanTime;
         private bool doneFirstScanLog = false;
 
-        private static Updater _instance;
-        private static Updater Instance => _instance;
+        // private static Updater _instance;
+        // private static Updater Instance => _instance;
+        //
+        // internal static RigidbodyInterpolation InstanceMode => Instance._interpolationMode.Value;
 
-        internal static RigidbodyInterpolation InstanceMode => Instance._interpolationMode.Value;
-
-        public ConfigEntry<RigidbodyInterpolation> _interpolationMode;
-        public ConfigEntry<float> _scanInterval;
+        public RigidbodyInterpolation _interpolationMode = RigidbodyInterpolation.Interpolate;
+        public float _scanInterval = 0.0f;
 
         private void Start()
         {
             RigidbodyInterpolationPlugin.Log.LogInfo("[Updater] Started");
-            _instance = this;
+            // _instance = this;
             _nextScanTime = Time.unscaledTime + RigidbodyInterpolationPlugin.InstanceMode switch
             {
                 _ => 0f
@@ -138,13 +138,7 @@ namespace stutter_fix
         }
 
         private void Update() {
-            var plugin = GetPlugin();
-            if (plugin == null) {
-                RigidbodyInterpolationPlugin.Log.LogInfo("[Updater] null plugin in update");
-                return;
-            }
-
-            if (plugin._scanInterval.Value <= 0f) {
+            if (_scanInterval <= -0.5f) {
                 if (!doneFirstScanLog) {
                     RigidbodyInterpolationPlugin.Log.LogInfo("[Updater] scan disabled");
                 }
