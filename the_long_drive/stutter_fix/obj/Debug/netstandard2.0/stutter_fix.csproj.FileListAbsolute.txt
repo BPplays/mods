@@ -1,0 +1,12 @@
+C:\Users\suzuko\dev\mods\main\the_long_drive\stutter_fix\bin\Debug\netstandard2.0\stutter_fix.deps.json
+C:\Users\suzuko\dev\mods\main\the_long_drive\stutter_fix\bin\Debug\netstandard2.0\stutter_fix.dll
+C:\Users\suzuko\dev\mods\main\the_long_drive\stutter_fix\bin\Debug\netstandard2.0\stutter_fix.pdb
+C:\Users\suzuko\dev\mods\main\the_long_drive\stutter_fix\obj\Debug\netstandard2.0\stutter_fix.csproj.AssemblyReference.cache
+C:\Users\suzuko\dev\mods\main\the_long_drive\stutter_fix\obj\Debug\netstandard2.0\MyPluginInfo.cs
+C:\Users\suzuko\dev\mods\main\the_long_drive\stutter_fix\obj\Debug\netstandard2.0\stutter_fix.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\suzuko\dev\mods\main\the_long_drive\stutter_fix\obj\Debug\netstandard2.0\stutter_fix.AssemblyInfoInputs.cache
+C:\Users\suzuko\dev\mods\main\the_long_drive\stutter_fix\obj\Debug\netstandard2.0\stutter_fix.AssemblyInfo.cs
+C:\Users\suzuko\dev\mods\main\the_long_drive\stutter_fix\obj\Debug\netstandard2.0\stutter_fix.csproj.CoreCompileInputs.cache
+C:\Users\suzuko\dev\mods\main\the_long_drive\stutter_fix\obj\Debug\netstandard2.0\stutter_fix.sourcelink.json
+C:\Users\suzuko\dev\mods\main\the_long_drive\stutter_fix\obj\Debug\netstandard2.0\stutter_fix.dll
+C:\Users\suzuko\dev\mods\main\the_long_drive\stutter_fix\obj\Debug\netstandard2.0\stutter_fix.pdb
