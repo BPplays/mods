@@ -186,6 +186,8 @@ namespace stutter_fix
         // }
     }
 
+
+
     [HarmonyPatch]
     internal static class InstantiatePatch
     {
@@ -241,37 +243,153 @@ namespace stutter_fix
         }
     }
 
+    // -------------------------------------------------------------------------
+    // Camera LateUpdate sync
+    // -------------------------------------------------------------------------
+
+    /// <summary>
+    /// Attached to the fpscontroller GameObject at runtime.
+    /// Re-syncs Th → CamParent in LateUpdate so the camera always reflects
+    /// the final head position after all Update lerps AND after physics
+    /// interpolation has resolved for this frame.
+    /// </summary>
+    internal class CameraLateSync : MonoBehaviour
+    {
+        private MonoBehaviour _fps;
+
+        // Cached field accessors (reflection, done once in Init)
+        private FieldInfo _fTh;
+        private FieldInfo _fTHeadLean;
+        private FieldInfo _fFHeadLerp;
+        private FieldInfo _fCamParent;
+        private FieldInfo _fBsitting;
+        private FieldInfo _fTHeadBob;
+        private FieldInfo _fTHeadDir;
+
+        private bool _ready;
+
+        public void Init(MonoBehaviour fps)
+        {
+            _fps = fps;
+            var t = fps.GetType();
+
+            _fTh         = AccessTools.Field(t, "Th");
+            _fTHeadLean  = AccessTools.Field(t, "THeadLean");
+            _fFHeadLerp  = AccessTools.Field(t, "FHeadLerp");
+            _fCamParent  = AccessTools.Field(t, "CamParent");
+            _fBsitting   = AccessTools.Field(t, "Bsitting");
+            _fTHeadBob   = AccessTools.Field(t, "THeadBob");
+            _fTHeadDir   = AccessTools.Field(t, "THeadDir");
+
+            // Warn loudly if any field wasn't found — field names may differ
+            foreach (var (name, fi) in new[]
+            {
+                ("Th",        _fTh),
+                ("THeadLean", _fTHeadLean),
+                ("FHeadLerp", _fFHeadLerp),
+                ("CamParent", _fCamParent),
+                ("Bsitting",  _fBsitting),
+                ("THeadBob",  _fTHeadBob),
+                ("THeadDir",  _fTHeadDir),
+            })
+            {
+                if (fi == null)
+                    RigidbodyInterpolationPlugin.Log.LogWarning(
+                        $"[CameraLateSync] Could not find field '{name}' on {t.Name}");
+            }
+
+            _ready = _fTh != null && _fTHeadLean != null &&
+                     _fFHeadLerp != null && _fCamParent != null;
+
+            RigidbodyInterpolationPlugin.Log.LogInfo(
+                $"[CameraLateSync] Init complete on {fps.name}, ready={_ready}");
+        }
+
+        private void LateUpdate()
+        {
+            if (!_ready || _fps == null) return;
+
+            // Skip if VR is active — VR has its own head tracking
+            if (UnityEngine.XR.XRSettings.enabled) return;
+
+            var Th        = _fTh.GetValue(_fps)        as Transform;
+            var THeadLean = _fTHeadLean.GetValue(_fps) as Transform;
+            var CamParent = _fCamParent.GetValue(_fps) as Transform;
+            var Bsitting  = _fBsitting  != null && (bool)_fBsitting.GetValue(_fps);
+
+            if (Th == null || THeadLean == null || CamParent == null) return;
+
+            float FHeadLerp = (float)(_fFHeadLerp?.GetValue(_fps) ?? 8f);
+            float dt = Time.deltaTime;
+
+            // Re-apply the same lerp the game does in Update, but now in
+            // LateUpdate so it runs after physics interpolation is done.
+            // This corrects the one-frame lag between RB movement and camera.
+            if (Bsitting && _fTHeadBob != null)
+            {
+                var THeadBob = _fTHeadBob.GetValue(_fps) as Transform;
+                if (THeadBob != null)
+                    Th.position = Vector3.Lerp(Th.position, THeadBob.position, FHeadLerp * dt);
+            }
+            else
+            {
+                Th.position = Vector3.Lerp(Th.position, THeadLean.position, FHeadLerp * dt);
+            }
+
+            // If CamParent is a direct child of Th its world position already
+            // followed — but if the game detached it (dropCam, mapView, etc.)
+            // we leave it alone and only fix the normal first-person case.
+            if (CamParent.parent == Th)
+            {
+                // localPosition should already be zero in normal FP view;
+                // just make sure it is so no offset accumulates.
+                if (CamParent.localPosition != Vector3.zero)
+                    CamParent.localPosition = Vector3.zero;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Harmony patch: hook fpscontroller.Start so we can attach CameraLateSync.
+    /// </summary>
     [HarmonyPatch]
-    internal static class FPSControllerLateUpdatePatch
+    internal static class FpsControllerStartPatch
     {
         static MethodBase TargetMethod()
         {
-            var type = AccessTools.TypeByName("FPSController");
-            return AccessTools.Method(type, "LateUpdate");
+            // Adjust the type name here if the game uses a namespace
+            var type = AccessTools.TypeByName("fpscontroller");
+            if (type == null)
+            {
+                RigidbodyInterpolationPlugin.Log?.LogError(
+                    "[FpsControllerStartPatch] Could not find type 'fpscontroller'");
+                return null;
+            }
+
+            // Try Start first, fall back to Awake
+            var m = AccessTools.Method(type, "Start")
+                 ?? AccessTools.Method(type, "Awake");
+
+            if (m == null)
+                RigidbodyInterpolationPlugin.Log?.LogError(
+                    "[FpsControllerStartPatch] Could not find Start or Awake on fpscontroller");
+
+            return m;
         }
 
         [HarmonyPostfix]
-        private static void Postfix(object __instance) {
-            RigidbodyInterpolationPlugin.Log.LogInfo("[FPSController] postfix started");
-
+        static void Postfix(MonoBehaviour __instance)
+        {
             if (__instance == null) return;
 
-            var type = __instance.GetType();
+            // Avoid double-adding if the scene reloads
+            if (__instance.GetComponent<CameraLateSync>() != null) return;
 
-            var camParent = AccessTools.Field(type, "CamParent")?.GetValue(__instance) as Transform;
-            if (camParent == null) return;
+            RigidbodyInterpolationPlugin.Log?.LogInfo(
+                $"[FpsControllerStartPatch] Attaching CameraLateSync to {__instance.name}");
 
-            var cam = AccessTools.Field(type, "Cam")?.GetValue(__instance) as Camera;
-            if (cam != null)
-            {
-                cam.transform.SetPositionAndRotation(camParent.position, camParent.rotation);
-            }
-
-            var listener = AccessTools.Field(type, "TAudioListener")?.GetValue(__instance) as Transform;
-            if (listener != null)
-            {
-                listener.position = camParent.position;
-            }
+            var sync = __instance.gameObject.AddComponent<CameraLateSync>();
+            sync.Init(__instance);
         }
     }
 
@@ -282,3 +400,5 @@ namespace stutter_fix
         public const string PLUGIN_VERSION = "1.0.0";
     }
 }
+
+
