@@ -39,16 +39,17 @@ namespace StutterFix
                 )
             );
 
-            // Scan whenever a scene finishes loading
             SceneManager.sceneLoaded += OnSceneLoaded;
 
-            // Scan the current scene immediately
-            ApplyToAll();
+            Log.LogInfo($"[StutterFix] Awake. Mode={_interpolationMode.Value}, ScanInterval={_scanInterval.Value}s");
+        }
 
-            // Periodic scan to catch runtime-spawned Rigidbodies
+        // Start() is called after all Awake()s — scene is more likely populated here
+        private void Start()
+        {
+            Log.LogInfo("[StutterFix] Start — launching coroutines.");
+            StartCoroutine(DelayedInitialScan());
             StartCoroutine(PeriodicScan());
-
-            Log.LogInfo($"[StutterFix] Loaded. Mode={_interpolationMode.Value}, ScanInterval={_scanInterval.Value}s");
         }
 
         private void OnDestroy()
@@ -58,16 +59,23 @@ namespace StutterFix
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            Log.LogInfo($"[StutterFix] Scene loaded: {scene.name} — scanning Rigidbodies.");
+            Log.LogInfo($"[StutterFix] Scene loaded: '{scene.name}' ({mode}) — scanning.");
+            // Wait a frame so the scene's objects have a chance to initialise
+            StartCoroutine(ScanNextFrame());
+        }
+
+        // Waits one frame then scans — gives newly loaded objects time to Awake/Start
+        private IEnumerator DelayedInitialScan()
+        {
+            yield return null; // one frame
+            Log.LogInfo("[StutterFix] Initial delayed scan.");
             ApplyToAll();
         }
 
-        private void ApplyToAll()
+        private IEnumerator ScanNextFrame()
         {
-            var rbs = FindObjectsOfType<Rigidbody>();
-            foreach (var rb in rbs)
-                rb.interpolation = _interpolationMode.Value;
-            Log.LogInfo($"[StutterFix] Applied {_interpolationMode.Value} to {rbs.Length} Rigidbody(s).");
+            yield return null;
+            ApplyToAll();
         }
 
         private IEnumerator PeriodicScan()
@@ -78,6 +86,15 @@ namespace StutterFix
                 yield return wait;
                 ApplyToAll();
             }
+        }
+
+        private void ApplyToAll()
+        {
+            // includeInactive: true catches Rigidbodies on disabled GameObjects too
+            var rbs = FindObjectsOfType<Rigidbody>(true);
+            foreach (var rb in rbs)
+                rb.interpolation = _interpolationMode.Value;
+            Log.LogInfo($"[StutterFix] Applied {_interpolationMode.Value} to {rbs.Length} Rigidbody(s).");
         }
     }
 
