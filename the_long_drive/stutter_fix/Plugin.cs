@@ -2,27 +2,31 @@
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
+using HarmonyLib;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace StutterFix
+namespace stutter_fix
 {
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-    public class StutterFixPlugin : BaseUnityPlugin
-    {
+    public class RigidbodyInterpolationPlugin : BaseUnityPlugin {
         public static ManualLogSource Log;
 
+        // Config entries
         private ConfigEntry<RigidbodyInterpolation> _interpolationMode;
         private ConfigEntry<float>                  _scanInterval;
 
-        private void Awake()
-        {
+        private Harmony _harmony;
+
+        private void Awake() {
+            _instance = this;
             Log = Logger;
 
+            // ── Configuration ──────────────────────────────────────────────
             _interpolationMode = Config.Bind(
                 "General",
                 "InterpolationMode",
-                RigidbodyInterpolation.Interpolate,
+                UnityEngine.RigidbodyInterpolation.Interpolate,
                 "Interpolation mode applied to every Rigidbody.\n" +
                 "  None        – disabled (vanilla)\n" +
                 "  Interpolate – smooth between the last two physics frames (recommended)\n" +
@@ -32,50 +36,72 @@ namespace StutterFix
             _scanInterval = Config.Bind(
                 "General",
                 "ScanInterval",
-                2f,
+                5f,
                 new ConfigDescription(
-                    "How often (seconds) to re-scan the scene for new Rigidbodies.",
-                    new AcceptableValueRange<float>(0.1f, 60f)
+                    "How often (seconds) to re-scan the scene for new Rigidbodies. " +
+                    "Set to 0 to disable periodic scanning (rely on the Awake patch only).",
+                    new AcceptableValueRange<float>(0f, 60f)
                 )
             );
 
+            // ── Harmony patch ───────────────────────────────────────────────
+            _harmony = new Harmony(PluginInfo.PLUGIN_GUID);
+            _harmony.PatchAll();
             SceneManager.sceneLoaded += OnSceneLoaded;
 
-            Log.LogInfo($"[StutterFix] Awake. Mode={_interpolationMode.Value}, ScanInterval={_scanInterval.Value}s");
+            // ── Initial scene scan ──────────────────────────────────────────
+            ApplyToAll();
+
+            // ── Periodic re-scan ────────────────────────────────────────────
+            if (_scanInterval.Value > 0f)
+                StartCoroutine(PeriodicScan());
+
+            Log.LogInfo($"[RigidbodyInterpolation] Plugin loaded. " +
+                        $"Mode={_interpolationMode.Value}, " +
+                        $"ScanInterval={_scanInterval.Value}s, ");
         }
 
-        // Start() is called after all Awake()s — scene is more likely populated here
-        private void Start()
-        {
-            Log.LogInfo("[StutterFix] Start — launching coroutines.");
-            StartCoroutine(DelayedInitialScan());
-            StartCoroutine(PeriodicScan());
-        }
-
-        private void OnDestroy()
-        {
+        private void OnDestroy() {
             SceneManager.sceneLoaded -= OnSceneLoaded;
+            _harmony?.UnpatchSelf();
         }
 
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            Log.LogInfo($"[StutterFix] Scene loaded: '{scene.name}' ({mode}) — scanning.");
-            // Wait a frame so the scene's objects have a chance to initialise
-            StartCoroutine(ScanNextFrame());
-        }
-
-        // Waits one frame then scans — gives newly loaded objects time to Awake/Start
-        private IEnumerator DelayedInitialScan()
-        {
-            yield return null; // one frame
-            Log.LogInfo("[StutterFix] Initial delayed scan.");
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
             ApplyToAll();
         }
 
-        private IEnumerator ScanNextFrame()
+        // ── Helpers ─────────────────────────────────────────────────────────
+
+        /// <summary>Applies the configured interpolation mode to every Rigidbody currently in the scene.</summary>
+        internal static void ApplyToAll()
         {
-            yield return null;
-            ApplyToAll();
+            var rbs = FindObjectsOfType<Rigidbody>();
+            int count = 0;
+            foreach (var rb in rbs)
+            {
+                Apply(rb);
+                count++;
+            }
+            Log.LogInfo($"[RigidbodyInterpolation] Applied to {count} existing Rigidbody(s).");
+        }
+
+        /// <summary>Applies the configured interpolation mode to a single Rigidbody.</summary>
+        internal static void Apply(Rigidbody rb)
+        {
+            if (rb == null) return;
+            rb.interpolation = Instance._interpolationMode.Value;
+        }
+
+        // Singleton reference used by the static patch
+        private static RigidbodyInterpolationPlugin _instance;
+        private static RigidbodyInterpolationPlugin Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = FindObjectOfType<RigidbodyInterpolationPlugin>();
+                return _instance;
+            }
         }
 
         private IEnumerator PeriodicScan()
@@ -87,17 +113,33 @@ namespace StutterFix
                 ApplyToAll();
             }
         }
+    }
 
-        private void ApplyToAll()
+    // ── Harmony patch – runs after every Rigidbody.Awake() ──────────────────
+    [HarmonyPatch(typeof(UnityEngine.Object), nameof(UnityEngine.Object.Instantiate), new[] { typeof(UnityEngine.Object) })]
+    internal static class InstantiatePatch
+    {
+        [HarmonyPostfix]
+        private static void Postfix(UnityEngine.Object __result)
         {
-            // includeInactive: true catches Rigidbodies on disabled GameObjects too
-            var rbs = FindObjectsOfType<Rigidbody>(true);
-            foreach (var rb in rbs)
-                rb.interpolation = _interpolationMode.Value;
-            Log.LogInfo($"[StutterFix] Applied {_interpolationMode.Value} to {rbs.Length} Rigidbody(s).");
+            if (__result is GameObject go)
+            {
+                foreach (var rb in go.GetComponentsInChildren<Rigidbody>(true))
+                    RigidbodyInterpolationPlugin.Apply(rb);
+            }
+            else if (__result is Rigidbody rb)
+            {
+                RigidbodyInterpolationPlugin.Apply(rb);
+            }
+            else if (__result is Component c)
+            {
+                foreach (var childRb in c.GetComponentsInChildren<Rigidbody>(true))
+                    RigidbodyInterpolationPlugin.Apply(childRb);
+            }
         }
     }
 
+    // ── Plugin metadata ──────────────────────────────────────────────────────
     internal static class PluginInfo
     {
         public const string PLUGIN_GUID    = "com.BPplays.stutter_fix";
