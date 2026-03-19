@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("stutter_fix")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5da7feb65b0cdddc3c806b0fd89d70bc22c8c7d5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+803742f27c0bb45a2618d5f4286750940719fcdd")]
 [assembly: System.Reflection.AssemblyProductAttribute("My first plugin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("stutter_fix")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
