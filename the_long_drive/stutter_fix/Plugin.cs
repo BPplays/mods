@@ -163,6 +163,27 @@ namespace stutter_fix
             // RigidbodyInterpolationPlugin.Log.LogInfo("[Updater] Scan tick");
             RigidbodyInterpolationPlugin.ApplyToAll();
         }
+
+        // private void LateUpdate() {
+        //     var cam = Camera.main;
+        //     if (cam == null) {
+        //         RigidbodyInterpolationPlugin.Log.LogWarning("[Updater (LateUpdate)] camera itself null");
+        //         return
+        //     }
+        //
+        //     // example: force camera to follow final transform
+        //     // (you'll customize this once you inspect the game)
+        //
+        //     var target = cam.transform.parent; // or wherever it follows
+        //
+        //     if (target != null) {
+        //         // RigidbodyInterpolationPlugin.Log.LogInfo("[Updater (LateUpdate)] patched camera");
+        //         cam.transform.position = target.position;
+        //         cam.transform.rotation = target.rotation;
+        //     } else {
+        //         RigidbodyInterpolationPlugin.Log.LogWarning("[Updater (LateUpdate)] camera target null");
+        //     }
+        // }
     }
 
     [HarmonyPatch]
@@ -217,6 +238,40 @@ namespace stutter_fix
             RigidbodyInterpolationPlugin.Log.LogInfo(
                     $"[enablePatch] {__instance.name} being set");
             RigidbodyInterpolationPlugin.Apply(__instance);
+        }
+    }
+
+    [HarmonyPatch]
+    internal static class FPSControllerLateUpdatePatch
+    {
+        static MethodBase TargetMethod()
+        {
+            var type = AccessTools.TypeByName("FPSController");
+            return AccessTools.Method(type, "LateUpdate");
+        }
+
+        [HarmonyPostfix]
+        private static void Postfix(object __instance) {
+            RigidbodyInterpolationPlugin.Log.LogInfo("[FPSController] postfix started");
+
+            if (__instance == null) return;
+
+            var type = __instance.GetType();
+
+            var camParent = AccessTools.Field(type, "CamParent")?.GetValue(__instance) as Transform;
+            if (camParent == null) return;
+
+            var cam = AccessTools.Field(type, "Cam")?.GetValue(__instance) as Camera;
+            if (cam != null)
+            {
+                cam.transform.SetPositionAndRotation(camParent.position, camParent.rotation);
+            }
+
+            var listener = AccessTools.Field(type, "TAudioListener")?.GetValue(__instance) as Transform;
+            if (listener != null)
+            {
+                listener.position = camParent.position;
+            }
         }
     }
 
