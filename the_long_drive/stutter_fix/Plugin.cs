@@ -88,7 +88,8 @@ namespace stutter_fix
 
         internal static void ApplyToAll()
         {
-            var rbs = FindObjectsOfType<Rigidbody>(true);
+            // var rbs = FindObjectsOfType<Rigidbody>(true);  // setting to true searches for inactive which finds gun and isn't tagged kinematics
+            var rbs = FindObjectsOfType<Rigidbody>();
             foreach (var rb in rbs)
                 Apply(rb);
         }
@@ -96,6 +97,10 @@ namespace stutter_fix
         internal static void Apply(Rigidbody rb)
         {
             if (rb == null) return;
+            if (rb.isKinematic) {
+                rb.interpolation = RigidbodyInterpolation.None;
+                return;
+            }
             rb.interpolation = InstanceMode;
         }
 
@@ -208,7 +213,7 @@ namespace stutter_fix
             if (Th == null || THeadLean == null || CamParent == null) {
                 RigidbodyInterpolationPlugin.Log.LogInfo(
                 $"[CameraLateSync] skipping late update");
-                return
+                return;
             }
 
             float FHeadLerp = (float)(_fFHeadLerp?.GetValue(_fps) ?? 8f);
