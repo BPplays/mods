@@ -270,6 +270,9 @@ namespace stutter_fix
 
         public void Init(MonoBehaviour fps)
         {
+
+            RigidbodyInterpolationPlugin.Log.LogInfo(
+            $"[CameraLateSync] starting");
             _fps = fps;
             var t = fps.GetType();
 
@@ -357,6 +360,9 @@ namespace stutter_fix
     {
         static MethodBase TargetMethod()
         {
+
+            RigidbodyInterpolationPlugin.Log.LogInfo(
+            $"[FpsControllerStartPatch] starting targetMethod");
             // Adjust the type name here if the game uses a namespace
             var type = AccessTools.TypeByName("fpscontroller");
             if (type == null)
@@ -380,6 +386,8 @@ namespace stutter_fix
         [HarmonyPostfix]
         static void Postfix(MonoBehaviour __instance)
         {
+            RigidbodyInterpolationPlugin.Log.LogInfo(
+            $"[FpsControllerStartPatch] starting postfix");
             if (__instance == null) return;
 
             // Avoid double-adding if the scene reloads
