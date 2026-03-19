@@ -11,6 +11,7 @@ namespace stutter_fix
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
     public class RigidbodyInterpolationPlugin : BaseUnityPlugin {
         public static ManualLogSource Log;
+        internal static RigidbodyInterpolation InstanceMode => Instance._interpolationMode.Value;
 
         // Config entries
         private ConfigEntry<RigidbodyInterpolation> _interpolationMode;
@@ -73,8 +74,7 @@ namespace stutter_fix
         // ── Helpers ─────────────────────────────────────────────────────────
 
         /// <summary>Applies the configured interpolation mode to every Rigidbody currently in the scene.</summary>
-        internal static void ApplyToAll()
-        {
+        internal static void ApplyToAll() {
             var rbs = FindObjectsOfType<Rigidbody>();
             int count = 0;
             foreach (var rb in rbs)
@@ -107,8 +107,7 @@ namespace stutter_fix
         private IEnumerator PeriodicScan()
         {
             var wait = new WaitForSeconds(_scanInterval.Value);
-            while (true)
-            {
+            while (true) {
                 yield return wait;
                 ApplyToAll();
             }
@@ -116,12 +115,14 @@ namespace stutter_fix
     }
 
     // ── Harmony patch – runs after every Rigidbody.Awake() ──────────────────
-    [HarmonyPatch(typeof(UnityEngine.Object), nameof(UnityEngine.Object.Instantiate), new[] { typeof(UnityEngine.Object) })]
-    internal static class InstantiatePatch
-    {
+    [HarmonyPatch(typeof(UnityEngine.Object), nameof(UnityEngine.Object.Instantiate))]
+    internal static class InstantiatePatch {
         [HarmonyPostfix]
-        private static void Postfix(UnityEngine.Object __result)
-        {
+        private static void Postfix(object __result) {
+            RigidbodyInterpolationPlugin.Log.LogInfo($"Instantiate hit: {__result?.GetType()}");
+            if (__result == null)
+                return;
+
             if (__result is GameObject go)
             {
                 foreach (var rb in go.GetComponentsInChildren<Rigidbody>(true))
@@ -136,6 +137,14 @@ namespace stutter_fix
                 foreach (var childRb in c.GetComponentsInChildren<Rigidbody>(true))
                     RigidbodyInterpolationPlugin.Apply(childRb);
             }
+        }
+    }
+    [HarmonyPatch(typeof(Rigidbody), "set_interpolation")]
+    internal static class RigidbodySetterPatch {
+        [HarmonyPostfix]
+        private static void Postfix(Rigidbody __instance) {
+            __instance.interpolation = RigidbodyInterpolationPlugin.InstanceMode;
+            RigidbodyInterpolationPlugin.Log.LogInfo($"set interpolation mode to: {__instance.interpolation}");
         }
     }
 
