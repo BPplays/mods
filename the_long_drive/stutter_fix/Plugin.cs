@@ -86,8 +86,9 @@ namespace stutter_fix
         }
 
         internal static void ApplyToAll() {
-            Log.LogInfo("[RigidbodyInterpolation] Scan tick.");
-            var rbs = FindObjectsOfType<Rigidbody>();
+            // Log.LogInfo("[RigidbodyInterpolation] Scan tick.");
+            // var rbs = FindObjectsOfType<Rigidbody>();
+            var rbs = FindObjectsOfType<Rigidbody>(true);
             int count = 0;
 
             foreach (var rb in rbs)
@@ -96,12 +97,20 @@ namespace stutter_fix
                 count++;
             }
 
-            Log.LogInfo($"[RigidbodyInterpolation] Applied to {count} existing Rigidbody(s).");
+            // Log.LogInfo($"[RigidbodyInterpolation] Applied to {count} existing Rigidbody(s).");
         }
 
         internal static void Apply(Rigidbody rb)
         {
             if (rb == null) return;
+
+            // // Skip camera rigs
+            // if (rb.CompareTag("MainCamera") || rb.GetComponentInChildren<Camera>() != null) {
+            //     rb.interpolation = RigidbodyInterpolation.None;
+            //     return;
+            // }
+
+
             rb.interpolation = InstanceMode;
         }
 
@@ -125,7 +134,7 @@ namespace stutter_fix
         // internal static RigidbodyInterpolation InstanceMode => Instance._interpolationMode.Value;
 
         public RigidbodyInterpolation _interpolationMode = RigidbodyInterpolation.Interpolate;
-        public float _scanInterval = 0.0f;
+        public float _scanInterval = 5.0f;
 
         private void Start()
         {
@@ -151,7 +160,7 @@ namespace stutter_fix
 
             _nextScanTime = Time.unscaledTime + _scanInterval;
 
-            RigidbodyInterpolationPlugin.Log.LogInfo("[Updater] Scan tick");
+            // RigidbodyInterpolationPlugin.Log.LogInfo("[Updater] Scan tick");
             RigidbodyInterpolationPlugin.ApplyToAll();
         }
     }
@@ -194,9 +203,20 @@ namespace stutter_fix
     internal static class RigidbodySetterPatch
     {
         [HarmonyPrefix]
-        private static void Prefix(ref RigidbodyInterpolation value)
-        {
+        private static void Prefix(Rigidbody __instance, ref RigidbodyInterpolation value) {
+            if (value != RigidbodyInterpolationPlugin.InstanceMode)
+                RigidbodyInterpolationPlugin.Log.LogInfo(
+                        $"[SetterPatch] Blocked {__instance.name} being set to {value}");
             value = RigidbodyInterpolationPlugin.InstanceMode;
+        }
+    }
+    [HarmonyPatch(typeof(Rigidbody), "OnEnable")]
+    internal static class RigidbodyOnEnablePatch {
+        [HarmonyPostfix]
+        private static void Postfix(Rigidbody __instance) {
+            RigidbodyInterpolationPlugin.Log.LogInfo(
+                    $"[enablePatch] {__instance.name} being set");
+            RigidbodyInterpolationPlugin.Apply(__instance);
         }
     }
 
