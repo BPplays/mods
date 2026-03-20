@@ -167,6 +167,10 @@ namespace stutter_fix
         private FieldInfo _fCamParent;
         private FieldInfo _fBsitting;
 
+        private FieldInfo _fCam;
+        private FieldInfo _fAnim;
+        private FieldInfo _fHHTarget;
+
         private bool _ready;
 
         private Vector3 _prevThPos;
@@ -181,6 +185,15 @@ namespace stutter_fix
             _fTh        = AccessTools.Field(t, "Th");
             _fCamParent = AccessTools.Field(t, "CamParent");
             _fBsitting  = AccessTools.Field(t, "Bsitting");
+
+            _fCam  = AccessTools.Field(t, "Cam");
+            _fAnim = AccessTools.Field(t, "anim");
+
+            if (_fAnim != null) {
+                var animObj = _fAnim.GetValue(fps);
+                if (animObj != null)
+                    _fHHTarget = AccessTools.Field(animObj.GetType(), "HHTarget");
+            }
 
             foreach (var (name, fi) in new[]
                     {
@@ -200,8 +213,7 @@ namespace stutter_fix
                     $"[CameraLateSync] Init complete on '{fps.name}', ready={_ready}");
         }
 
-        private void FixedUpdate()
-        {
+        private void FixedUpdate() {
             if (!_ready || _fps == null) return;
 
             var Th = _fTh.GetValue(_fps) as Transform;
@@ -217,6 +229,17 @@ namespace stutter_fix
 
             _prevThPos = _currThPos;
             _currThPos = Th.position;
+        }
+
+        private Transform GetHHTarget() {
+            if (_fAnim == null || _fHHTarget == null || _fps == null)
+                return null;
+
+            var animObj = _fAnim.GetValue(_fps);
+            if (animObj == null)
+                return null;
+
+            return _fHHTarget.GetValue(animObj) as Transform;
         }
 
         private void LateUpdate()
@@ -254,6 +277,8 @@ namespace stutter_fix
 
             // // Apply the interpolated world position for rendering.
             // Th.position = interpolatedThPos;
+            var Cam        = _fCam?.GetValue(_fps) as Transform;
+            var hhtarget   = GetHHTarget();
 
             // Keep the camera local offset clean if it is parented to Th.
             if (CamParent.parent == Th && CamParent.localPosition != Vector3.zero) {
@@ -276,6 +301,17 @@ namespace stutter_fix
             CamParent.position = extrapolatedThPos + offset + (forward * lookOffset);
 
             // CamParent.localPosition += forward;
+
+            if (hhtarget != null && Cam != null && hhtarget.parent == Cam)
+            {
+                Vector3 modelForward = Cam.forward;
+                modelForward.y = 0f;
+                if (modelForward.sqrMagnitude > 0.0001f) modelForward.Normalize();
+                else modelForward = Vector3.zero;
+
+                hhtarget.position = Cam.position + (modelForward * lookOffset);
+            }
+
         }
     }
 
