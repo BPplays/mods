@@ -1,0 +1,20 @@
+name: bcml
+channels:
+  - cadquery
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.10
+  - pip
+  - uv
+  - ty
+
+  - pip:
+    - bcml
+
+    - "python-lsp-server[all]"
+    - pylsp-rope
+    - pylsp-mypy
+    - python-lsp-isort
+    - python-lsp-ruff
