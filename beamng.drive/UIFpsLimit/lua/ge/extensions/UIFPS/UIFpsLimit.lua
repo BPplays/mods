@@ -22,15 +22,21 @@ function M.onUpdate(dt)
 end
 
 local function onExtensionLoaded()
+	log("I", "cef_fps", "loaded trigger")
+	setFpsLimit()
+end
+
+local function secondarySetFps()
+	log("I", "cef_fps", "secondary trigger")
 	setFpsLimit()
 end
 
 
 M.onExtensionLoaded = onExtensionLoaded
 
-M.onUiChangedState = setFpsLimit
-M.reloadUIModule = setFpsLimit
-M.invokeWindowSelector = setFpsLimit
-M.onSettingsChanged = setFpsLimit
+M.onUiChangedState = secondarySetFps
+M.reloadUIModule = secondarySetFps
+M.invokeWindowSelector = secondarySetFps
+M.onSettingsChanged = secondarySetFps
 
 return M
