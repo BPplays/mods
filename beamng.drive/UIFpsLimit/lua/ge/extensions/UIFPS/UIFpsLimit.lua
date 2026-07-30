@@ -25,11 +25,12 @@ local function onExtensionLoaded()
 	setFpsLimit()
 end
 
-local function onExtensionUnloaded()
-	reloadModules(extensions.unload)
-end
 
 M.onExtensionLoaded = onExtensionLoaded
-M.onExtensionUnloaded = onExtensionUnloaded
+
+M.onUiChangedState = setFpsLimit
+M.reloadUIModule = setFpsLimit
+M.invokeWindowSelector = setFpsLimit
+M.onSettingsChanged = setFpsLimit
 
 return M
