@@ -1,0 +1,1 @@
+setExtensionUnloadMode("UIFPS_UIFpsLimit", "manual")
